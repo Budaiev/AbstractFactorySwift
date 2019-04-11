@@ -10,6 +10,9 @@ import UIKit
 
 //==========================================================================
 
+
+/// TODO: Abstract / Concrete fabric for UI example, views or buttons.
+
 protocol UIFactory {
     
 //    static func createUI<T:UIButton> () -> (T) where T:Decoratable
@@ -26,6 +29,7 @@ protocol Decoratable {
 extension Decoratable where Self: UIView {
     
     func decorate() {
+        
         self.decorateUIView()
     }
     
@@ -34,7 +38,6 @@ extension Decoratable where Self: UIView {
         self.backgroundColor = .orange
         //self.setTitle("WhiteScheme", for: .normal)
         //self.setTitleColor(.black, for: .normal)
-        
     }
     
 }
@@ -55,7 +58,7 @@ extension Decoratable where Self: UIButton {
 //==========================================================================
 
 
-class WhiteSchemeFactory: UIFactory {
+final class WhiteSchemeFactory: UIFactory {
     
     static func createUI <T:UIView> () -> (T) where T:Decoratable {
     //static func createUI<T:UIButton> () -> (T) where T:Decoratable {
@@ -66,7 +69,7 @@ class WhiteSchemeFactory: UIFactory {
     }
 }
 
-class BlackSchemeFactory: UIFactory {
+final class BlackSchemeFactory: UIFactory {
     
     static func createUI<T:UIView> () -> (T) where T:Decoratable {
     //static func createUI<T:UIButton> () -> (T) where T:Decoratable {
@@ -77,7 +80,7 @@ class BlackSchemeFactory: UIFactory {
     }
 }
 
-class GreySchemeFactory: UIView, UIFactory {
+final class GreySchemeFactory: UIView, UIFactory {
     
     static func createUI<T:UIView> () -> (T) where T:Decoratable {
         //static func createUI<T:UIButton> () -> (T) where T:Decoratable {
@@ -88,13 +91,6 @@ class GreySchemeFactory: UIView, UIFactory {
     }
 }
 
-//class BaseSchemeButton : UIButton , Decoratable {
-//
-//    func decorate() {
-//
-//        assert(false, "Should be Overrided in SubClasses")
-//    }
-//}
 
 class BaseSchemeButton : UIView , Decoratable {
     
@@ -130,19 +126,15 @@ class BlackSchemeButton : BaseSchemeButton {
     }
 }
 
+//enum Appearance: String {
+//    case white,black
+//}
+
 enum Appearance: Int {
     case white = 0
     case black
     case grey
-    //case appearanceCount
 }
-
-//enum Appearance: String {
-//    case white,black,appearanceCount
-//}
-
-
-//extension DrawButton where Self: UIButton {}
 
 
 class DemoController: UIViewController , UIPickerViewDelegate , UIPickerViewDataSource {
